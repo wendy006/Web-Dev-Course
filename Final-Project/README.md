@@ -2,7 +2,7 @@
 
 A simulated game for an NFT-inspired marketplace for buying and selling digital art
 
-**Demo**: https://youtu.be/hmzJu7UKxqk
+**Demo**: https://youtu.be/7rBDjFmK6VA
 [![Clickmania Demo](https://i.imgur.com/4GV0WtD.png)](https://youtu.be/hmzJu7UKxqk)
 
 
