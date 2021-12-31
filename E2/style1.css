@@ -1,0 +1,51 @@
+:root {
+    --body_bg_color: #228;
+    --button_bg_color: #bbb;
+}
+
+body {
+    background-color: var(--body_bg_color);
+}
+
+h1 {
+    background-color: white;
+    /* background-color: rgb(235, 238, 65); */
+    text-align: center;
+    margin-bottom: 0em;
+    margin-top: 0em;
+}
+
+h2#first {
+    margin-top: 0em;
+    /* padding-top: 10px; */
+    padding-top: 0.5em;
+}
+
+
+/* ul#menu>li --- li directly after an <ul id=menu>*/
+
+ul#menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    margin-bottom: 0em;
+    padding: 0em;
+}
+
+ul#menu li {
+    list-style: none;
+    padding: 0.5em;
+    background-color: var(--button_bg_color);
+    /* for mobile device */
+    margin: 0.5px;
+}
+
+ul#menu li.current {
+    background-color: white;
+}
+
+div#main {
+    background-color: white;
+    margin: 0em;
+}

@@ -1,0 +1,213 @@
+Exercise 3
+
+PART 1.Telnet HTTP Conversations
+Q1:indicate what the status code was for the server's response.
+A1:The status code is 200 OK. It means everything is fine; contents of resource follow in message body.
+
+
+-----------------[Q1] LOG START -------------------
+
+tanny@DESKTOP-K2G9TG3:~$ telnet www.sfu.ca 80
+Trying 142.58.228.150...
+Connected to www.sfu.ca.
+Escape character is '^]'.
+GET /~ggbaker/470e3/ HTTP/1.1
+Host: www.sfu.ca
+Connection: close
+
+HTTP/1.1 200 OK
+Date: Fri, 08 Oct 2021 03:09:13 GMT
+Server: Apache
+Last-Modified: Tue, 01 Sep 2015 07:00:00 GMT
+Accept-Ranges: bytes
+Content-Length: 225
+Cache-Control: max-age=3600
+Expires: Fri, 08 Oct 2021 04:09:13 GMT
+box: p5 D=9363 t=1633662553413545
+Access-Control-Allow-Origin: *
+Connection: close
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple HTML Page</title>
+  </head>
+  <body>
+  <p>This is a simple HTML page for use as an example in a CMPT 470 exercise.</p>
+  </body>
+</html>
+
+Connection closed by foreign host.
+tanny@DESKTOP-K2G9TG3:~$
+
+
+-----------------[Q1] LOG END -------------------
+
+PART 2. If-modified-since
+Q2: indicate what the status code was for the server's response and how the response differed from the previous question.
+A2: status code is 304 (Not Modified). If the server cache has not changed since Wed, 1 Sep 2021 00:00:00 GMT, then we will receive 304 status code without content body. But if it was changed since Wed, 1 Sep 2021 00:00:00 GMT, we will receive the 200 status code(which is the same as Q1 scenerio) which has the lastest content body. We will not receive a content body because there is nothing updated since the specific date. Thus the difference between 304 and 200 is: 304 means we will not received the (updated) webpage content but we will receive webpage if we receive 200 status code.
+
+
+-----------------[Q2] LOG START -------------------
+tanny@DESKTOP-K2G9TG3:~$ telnet www.sfu.ca 80
+Trying 142.58.228.150...
+Connected to www.sfu.ca.
+Escape character is '^]'.
+GET /~ggbaker/470e3/ HTTP/1.1
+Host: www.sfu.ca
+Connection: close
+If-modified-since: Wed, 1 Sep 2021 00:00:00 GMT
+
+HTTP/1.1 304 Not Modified
+Date: Fri, 08 Oct 2021 03:18:04 GMT
+Server: Apache
+Connection: close
+Expires: Fri, 08 Oct 2021 04:18:04 GMT
+Cache-Control: max-age=3600
+
+Connection closed by foreign host.
+tanny@DESKTOP-K2G9TG3:~$
+-----------------[Q2] LOG END -------------------
+
+PART 3.Redirect
+
+Q3: indicate what the status code was for the server's response and how the response differed from the original request.
+A3: The status code is 301 (Moved Permanently).
+301 -- the requested webpage has been permanently moved to a new location. The requesters will be automatically directed to a new location.(we see in the response data, there is a field whose name is 'location')
+
+301 is quite different from 304, because 304 is more related to 'cache'.If the requested webpage has not been modified since a specific time , the requester should continue to use the original cache. 301 is also different from 200, which has no 'location switch' occurs.   
+
+-----------------[Q3] LOG START -------------------
+tanny@DESKTOP-K2G9TG3:~$ telnet www.sfu.ca 80
+Trying 142.58.228.150...
+Connected to www.sfu.ca.
+Escape character is '^]'.
+GET /~ggbaker/470e3 HTTP/1.1
+Host: www.sfu.ca
+Connection: close
+If-modified-since: Wed, 1 Sep 2021 00:00:00 GMT
+
+HTTP/1.1 301 Moved Permanently
+Date: Fri, 08 Oct 2021 03:51:25 GMT
+Server: Apache
+Location: http://www.sfu.ca/~ggbaker/470e3/
+Cache-Control: max-age=3600
+Expires: Fri, 08 Oct 2021 04:51:25 GMT
+Content-Length: 301
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.sfu.ca/~ggbaker/470e3/">here</a>.</p>
+<hr>
+<address>Apache Server at www.sfu.ca Port 80</address>
+</body></html>
+Connection closed by foreign host.
+tanny@DESKTOP-K2G9TG3:~$
+-----------------[Q3] LOG END -------------------
+
+PART 4.Command-Line Requests
+
+Q4.Try at least one of these command-line tools (curl or GET). In your exercise3.txt, indicate the difference the command-line options (-I or -esS) made in the output of the command.
+A4. I will choose 'curl':
+
+-[1] the curl command without any option is doing 'GET' operation by default, and it will show the server response (web page)content.
+
+- the command-line options (-I or -esS)
+Analysis:
+-e:(Referer) will send the referer page info to server.
+-s:(Silent) will not show the progress information and error messages.
+-S:(Show Error) will show error messages.
+-sS: make the curl mute, but it will show the error message if any.
+
+Conclusion:
+-[2]
+  -I:(Head) Get the Http Response header information only.
+  Compare [curl -I <valid url>] and [curl -I <invalid url>], we can see the one with valid url would return back 200 OK status code, which means the request has been handles properly, however, the other one will get 301 Moved Permanently status code.
+
+-[3]
+-esS:send the referer info to sever and make the curl mute until there are any error occurs. 
+  Compare [curl -esS <valid url>] and [curl -esS <invalid url>], we can see the one with invalid url will has extra (error) info -- "HTTP/1.1 301 Moved Permanently"
+
+-[4]
+-Compare [curl -I <url>] and [curl -esS <url>]:'-esS' is different from '-I' option, because it will get the webpage info and show it. but it will not show the response head info, which '-I' will do. '-I' will only fetch the http header. Additionally, '-esS' will mute the curl until there is any error occurs.(such as 'the invalid url' request). 
+
+
+ 
+
+-----------------[Q4] LOG START -------------------
+tanny@DESKTOP-K2G9TG3:~$ curl http://www.sfu.ca/~ggbaker/470e3/
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple HTML Page</title>
+  </head>
+  <body>
+  <p>This is a simple HTML page for use as an example in a CMPT 470 exercise.</p>
+  </body>
+</html>
+
+tanny@DESKTOP-K2G9TG3:~$ curl -I http://www.sfu.ca/~ggbaker/470e3/
+HTTP/1.1 200 OK
+Date: Fri, 08 Oct 2021 04:41:32 GMT
+Server: Apache
+Last-Modified: Tue, 01 Sep 2015 07:00:00 GMT
+Accept-Ranges: bytes
+Content-Length: 225
+Cache-Control: max-age=3600
+Expires: Fri, 08 Oct 2021 05:41:32 GMT
+box: p5 D=2713 t=1633668092207580
+Access-Control-Allow-Origin: *
+Content-Type: text/html
+
+tanny@DESKTOP-K2G9TG3:~$ curl -esS http://www.sfu.ca/~ggbaker/470e3/
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple HTML Page</title>
+  </head>
+  <body>
+  <p>This is a simple HTML page for use as an example in a CMPT 470 exercise.</p>
+  </body>
+</html>
+
+tanny@DESKTOP-K2G9TG3:~$ curl -I http://www.sfu.ca/~ggbaker/470e3
+HTTP/1.1 301 Moved Permanently
+Date: Fri, 08 Oct 2021 04:42:22 GMT
+Server: Apache
+Location: http://www.sfu.ca/~ggbaker/470e3/
+Cache-Control: max-age=3600
+Expires: Fri, 08 Oct 2021 05:42:22 GMT
+Content-Type: text/html; charset=iso-8859-1
+
+tanny@DESKTOP-K2G9TG3:~$ curl -esS http://www.sfu.ca/~ggbaker/470e3
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.sfu.ca/~ggbaker/470e3/">here</a>.</p>
+<hr>
+<address>Apache Server at www.sfu.ca Port 80</address>
+</body></html>
+tanny@DESKTOP-K2G9TG3:~$
+-----------------[Q4] LOG END -------------------
+
+PART 5.Developer Tools
+Q5. Also have a look at the display of the HTML source and associated CSS rules. (In the Inspector/Elements tab, expand some elements to explore the markup.)
+
+A5. "I promise I played with the developer tools"
+
+
+PART 6.Git Intro
+[Working with Git]: Please see gitlab
+[Git Tag]: Please see gitlab
+

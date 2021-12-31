@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var names = ['Alice', 'Emily', 'Kate']; {/*this is an array*/}
+
+      ReactDOM.render(
+        <div>
+        {
+          {/*从数组names中，按照index，依次取出数组成员*/}
+          names.map(function (name, index) {
+            {/*return 回去的这个 div元素正式，reactDom树想要渲染在浏览器上的东西/元素*/}
+            return <div key={index}>Hello, {name}!</div>
+          })
+        }
+        </div>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
+
+
+三、JSX 语法
+上一节的代码， HTML 语言直接写在 JavaScript 语言之中，不加任何引号，这就是 JSX 的语法，它允许 HTML 与 JavaScript 的混写
+
+上面代码体现了 JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。

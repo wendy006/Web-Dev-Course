@@ -1,0 +1,6 @@
+<form action="{% url 'contact:edit' person.id %}" method="post">
+    <h1>Edit Contact</h1>
+    <h3>Note: The following fields are all required! </h3> {% csrf_token %} {{ form.as_ul }}
+    <br>
+    <input type="submit" value="Update Contact">
+</form>

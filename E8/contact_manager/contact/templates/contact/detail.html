@@ -1,0 +1,31 @@
+<h1>
+    Contact List: {{person.first_name}} {{person.last_name}}
+</h1>
+
+
+<p>
+    <strong>First Name:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.first_name}}
+</p>
+
+
+<p><strong>Last name:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.last_name}}
+</p>
+
+<p><strong>Email:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.email}}</p>
+
+<p><strong>Phone Number:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.phone_number}}</p>
+
+<p><strong>Notes:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.notes}}</p>
+
+<!-- <p><strong>Person ID:</strong>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp; {{person.id}}
+</p> -->
+
+
+<a href="{% url 'contact:index' %}"> List of people </a> |
+<a href="{% url 'contact:edit' person.id %}"> Edit contact</a>

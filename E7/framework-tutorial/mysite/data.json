@@ -1,0 +1,71 @@
+[
+{
+    "model": "polls.question",
+    "pk": 1,
+    "fields": {
+        "question_text": "What's up?",
+        "pub_date": "2021-10-30T03:47:59Z"
+    }
+},
+{
+    "model": "polls.choice",
+    "pk": 1,
+    "fields": {
+        "question": 1,
+        "choice_text": "Not much",
+        "votes": 5
+    }
+},
+{
+    "model": "polls.choice",
+    "pk": 2,
+    "fields": {
+        "question": 1,
+        "choice_text": "The sky",
+        "votes": 4
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$180000$EN1h9NRJpIvP$G6aLaGNs3y5mK+AEtbZHWz7aZU6kzGCzy00Xdka2lwY=",
+        "last_login": "2021-10-30T03:34:42.146Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-10-30T03:32:56.577Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "2wowdsff376703amvzqnhhqickftqf2y",
+    "fields": {
+        "session_data": "NWJkZjU3YTc2Njg5ZjFhNmJkYjU0MmZiMjNjOGI0N2EzMTVjNmE5Mzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZGFkNDViMjJhODI4YjEyNGFmNDllOGRmY2RhMGU1YTcwYjljMjVhIn0=",
+        "expire_date": "2021-11-13T03:34:42.163Z"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2021-10-30T03:48:13.132Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "polls",
+            "question"
+        ],
+        "object_id": "1",
+        "object_repr": "What's up?",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Date published\"]}}]"
+    }
+}
+]

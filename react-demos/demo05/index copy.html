@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      class NotesList extends React.Component {
+        render() {
+          return (
+            <ol>
+              {
+                React.Children.map(this.props.children, function (child) {
+                  return <li>{child}</li>;
+                })
+              }
+            </ol>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <NotesList>
+          <span>hello</span>
+          <span>world</span>
+        </NotesList>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
+
+
+this.props 对象的属性与组件的属性一一对应，但是有一个例外，就是 this.props.children 属性。它表示组件的所有子节点
+
+上面代码的 NoteList 组件有两个 span 子节点，它们都可以通过 this.props.children 读取，运行结果如下。
+
+这里需要注意， this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。所以，处理 this.props.children 的时候要小心。
+
+React 提供一个工具方法 React.Children 来处理 this.props.children 。我们可以用 React.Children.map 来遍历子节点，而不用担心 this.props.children 的数据类型是 undefined 还是 object。更多的 React.Children 的方法，请参考官方文档。
+
+
+
+
+https://www.runoob.com/jsref/jsref-map.html
+===========================================================================
+map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+map() 方法按照原始数组元素顺序依次处理元素。
+注意： map() 不会对空数组进行检测。
+注意： map() 不会改变原始数组。
+---------------
+array.map(function(currentValue,index,arr), thisValue)
+返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+也就是这个array中的每个元素都会执行function的方法，然后返回的是，该元素进行该函数处理之后返回的值的集合。在react中，一般这个函数就是会把原来数组中的元素包装在html标签中返回。比如最终返回的数组是一组 <h1>标签。
+
+function(currentValue, index,arr)	
+必须。函数，数组中的每个元素都会执行这个函数
+函数参数:
+currentValue	必须。当前元素的值
+index	可选。当前元素的索引值
+arr	可选。当前元素属于的数组对象
+---------
+thisValue
+可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+如果省略了 thisValue，或者传入 null、undefined，那么回调函数的 this 为全局对象。
+===========================================================================

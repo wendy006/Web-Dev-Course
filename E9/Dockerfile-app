@@ -1,0 +1,41 @@
+# FROM ubuntu:18.04
+
+# RUN apt-get update
+# RUN apt-get -y install python-pip
+# RUN apt-get update
+# RUN pip install --upgrade pip
+# RUN pip install psycopg2-binary
+
+# COPY base.py base.py
+
+# CMD ["python", "base.py"]
+
+
+FROM python:3.7
+WORKDIR /code
+ENV PYTHONUNBUFFERED=1
+COPY wait.sh /wait.sh
+RUN chmod +x /wait.sh
+COPY requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
+ADD ./ /code
+CMD /wait.sh db 5432 \
+  && python contact_manager/manage.py collectstatic --noinput \
+  && python contact_manager/manage.py migrate \
+  && python contact_manager/manage.py loaddata contact_manager/fixture/superuser.json \
+  && python contact_manager/manage.py loaddata contact_manager/fixture/data.json \
+  && /usr/local/bin/uwsgi --ini /code/contact_manager/contact_manager/uwsgi.ini 
+
+
+
+
+
+# FROM python:3.7
+# WORKDIR /code
+# ENV PYTHONUNBUFFERED=1
+# COPY requirements.txt /tmp/
+# RUN pip install -r /tmp/requirements.txt
+# CMD python contact_manager/manage.py migrate \
+#   # && python contact_manager/manage.py loaddata data.json \
+#   && python contact_manager/manage.py runserver 0:8000
+

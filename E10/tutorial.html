@@ -1,0 +1,266 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="application.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+ 
+    // Your code goes here.
+   
+ 
+ 
+    </script>
+
+
+
+
+
+    <h1>1.About jQuery</h1>
+    <h2>Check 'About jQuery Folder', I took some notes on it.</h2>
+
+    <h1>2.Using jQuery Core</h1>
+    <h2>Check 'Using jQuery Core Folder', I took complete notes on it.</h2>
+
+    <h1>3.Events </h1>
+    <h1>3.1 jQuery Event Basics</h1>
+    <h2>3.1.1 Click Event</h2>
+
+    <p class='p_click_info'>click this line and see the console log(A button with the alert class was clicked!)</p>
+    <button class='alert'>see console msg: A button with the alert class was clicked!</button>
+
+    <h2>3.1.2 Inside the Event Handler Function</h2>
+    <p>type in some text, when finished, check the console for some information(listening to the event)</p>
+    <form>
+    <input class='on_change' type="text"> 
+    </form>
+
+    <h2>3.1.3 Preventing a link from being followed</h2>
+    <p>type in some text, when finished, check the console for some information(listening to the event).<br>
+        click will not following the link, see this tag 'a' will add a new class to itself 
+    
+    </p>
+
+    <a href = "https://www.google.ca"> google.ca(will not follow) </a>
+
+
+    <h2>3.1.4 Multi items with the same event</h2>
+    <p>Click following 2 buttons, see the console output which are the same <br>
+    Because they were binded with the same events!
+    </p>
+    <button class='single_events' > click me</button>
+    <button class='single_events' > click me</button>
+
+
+
+    <h2>3.1.5 Single items with multi event</h2>
+    <p>Click or hover the following button, see the console output which are two kind of events: <br>
+    1.hover 2.clicked
+    </p>
+    <button class='multi_events' > click me</button> 
+ 
+    <h2>3.1.6 Tearing Down Event Listeners</h2>
+    <p>See console, it was binded click to 'foo' and 'bar', however,<br>
+    I disable the 'bar', then you can only see 'foo' still binded to it.
+    </p>
+    <button class='b6' > button click(only foo no bar)</button> 
+
+
+    <h2>3.1.7 Setting Up Events to Run Only Once</h2>
+    <p>Click the following button, see the console output and the 'first' output will only appear once only <br>
+    The later output will be different from the first one<br>
+    Because we can tell if it is the first click and distribute it to different handler.
+    </p>
+    <button class='button_once'>My click event only be invoked once! </button> 
+
+
+    <h1>3.2 Event Helpers</h1> 
+    <p>See the source dom tree for this specific tag, you will discover that: the class 'hover' will be toggled each time you hover this button. 
+    </p>
+    <button id='event_helper'>hover this button and check the dom tree to see the class('hover') is toggled.</button>
+
+    <h1>3.3 Introducing Events</h1> 
+    <h2>3.3.1.Ways to listen for events</h2> 
+
+    <p>a)[by adding in html directly] Click to see the alert 
+    </p>
+    <button onclick="alert('Hello')">Say hello</button>
+
+
+    <p>b) [by binding from locating its tag id] Click to see the alert 
+    </p>
+    <button id="helloBtn">Say hello</button>
+
+    <h2>3.3.2.Preventing a default action from occurring and stopping the event bubbling</h2> 
+    <p>click the submit button, you will see no change, because its default behaviour has been prohibited!
+    </p>
+    <form class="prevent_submit_default"> 
+        <input type="text" id="fname" name="fname"><br> 
+        <input type="submit" id="submit_button" name="submit">
+    </form>
+
+
+    <h1>3.4 Handling Events </h1> 
+
+    <h2>3.4.1 linkThe event object</h2>
+    <p>click the button and see the console, it should show you a very detailed event object information!
+        </p>
+    <button class="btn_341">click to get detailed info in console</button>
+
+    <h2>3.4.2 pass your own data to the event object.</h2> 
+    <p>click the button and see the console, the "foo:bar" data was added by me.
+        </p>
+    <button class="btn_342">click to get the 'new data' added by me in console</button>
+
+    <p><b>Note: many content of this part is repeated with the previous parts, thus I will not list the examples here.</b></p>
+
+
+    <h1>3.5 Inside the Event Handling Function</h1>  
+    <p><b>The only example showed in this page is similar to previous parts, so will not list the example here</b></p>
+
+    <h1>3.6 Understanding Event Delegation </h1>
+    <h2>3.6.1 Event Propagation</h2> 
+    <p>When an anchor in our #list group is clicked, we want to log its text to the console. Normally we could directly bind to the click event of each anchor using the .on() method </p>
+    <p>While this works perfectly fine, there are drawbacks. Consider what happens when we add a new anchor after having already bound the above listener </p>
+    <p>Since we know how events bubble, we can create a delegated event:</p>
+    <p> -- please see the console output, it will tell you which item you had clicked </p>
+ 
+    <ul id="list_361">
+        <li><a href="http://domain1.com">Item #1</a></li>
+        <li><a href="/local/path/1">Item #2</a></li>
+        <li><a href="/local/path/2">Item #3</a></li>
+        <li><a href="http://domain4.com">Item #4</a></li>
+    </ul>
+
+    <h2>3.6.2 Using the Triggering Element </h2> 
+    <p>What if we wanted to open the link in a new window if that link is an external one (as denoted here by beginning with "http")?</p>
+    <ul id="list_362">
+        <li><a href="https://www.sfu.ca">this is external link and will open a new page</a></li>
+        <li><a href="/local/path/1">Item #2</a></li>
+        <li><a href="/local/path/2">Item #3</a></li>
+    </ul>
+
+    <h1>3.7 Triggering Event Handlers</h1> 
+    <h2>3.7.1 linkWhat handlers can be .trigger()'d?</h2> 
+    <p>$( "a" ).trigger( "click" );</p>
+    <p> -- just a common and simple link test </p>
+    <a class="a_event_handler" href="http://learn.jquery.com">Learn jQuery</a>
+
+    
+    <h2>3.7.2 Don't use .trigger() simply to execute specific functions</h2> 
+    <p>click the button, and see the console info.</p>
+    <p> -- it will tell if that is from an event or not(see the top info in console, that was exactly from this 3.7.2 test!)</p>
+    <button class="btn372">Learn jQuery</button>
+
+    <h1>3.8 Introducing Custom Events</h1>  
+    <div class="room" id="kitchen">
+        <p><b>1.kitchen</b></p>
+        <div class="lightbulb on">lightbulb on</div>
+        <b>Click the following 3 texts, the above(kitchen) 'lightbulb on/off' will be toggled(see dom tree, need to locate into this specific tag to observe the change!)</b>
+
+        <div class="switch">switch</div>
+        <div class="switch">switch</div>
+        <div class="clapper">clapper</div>
+    </div>
+    <div class="room" id="bedroom">
+        <p><b>2.bedroom</b></p>
+        <div class="lightbulb on">lightbulb on</div>
+        <b>Click the following 3 texts, the above(bedroom) 'lightbulb on/off' will be toggled(see dom tree, need to locate into this specific tag to observe the change!)</b>
+        <div class="switch">switch</div>
+        <div class="switch">switch</div>
+        <div class="clapper">clapper</div>
+    </div> 
+    <p><b>3.master switch</b></p>
+    <b>Click the following text, both the 'lightbulb on/off' will be toggled(see dom tree, need to locate into this specific tag to observe the change!)</b>
+    <div id="master_switch">master_switch</div>
+
+
+    <h1>3.9 jQuery Event Extensions</h1>  
+    <h2>3.9.1multi-event</h2> 
+    <p>if you click the following button for 3 times, there will be an alert appears</p>
+    <button class="btn39">Multiclick event</button>
+
+    <h1>4 Effects</h1>
+    <h1>4.1 Introduction to Effects</h1>
+    <p>adding or removing the attributes are only shown on the dom tree, which is similar to the previous tests, thus not to show them</p>
+    <p>Fresh the page to see the animation(The following text will fade out in 3 seconds)</p>
+    <p class='p_fadeout'>This text will fade out in 3 seconds</p>
+
+    <h1>4.2 Custom Effects with .animate()</h1>
+    <p>Fresh the page to see the animation</p>
+    <p>when the animation completed, see the console info: (from test 4.2 : animation done!)</p>
+    <div class="funtimes" >see the animation of this div tag</div>
+
+
+<h1>4.3 Queue & Dequeue Explained</h1>
+<h2>4.3.1 Queues As Callbacks</h2>
+<p>Fresh the page to see the animation: the text will be updated to a new content!</p>
+<div class="box431" style="background-color:powderblue; height:50">
+<p id="p431_title">see the animation of this div tag</p>
+</div>
+
+
+<h2>4.3.2 Custom Queues</h2>
+<p>Fresh the page to see the animation.<br>
+See console for info -- they are two animations in the queue</p>
+<div class="box432" style="background-color:green; height:50">
+<p id="p432_title">see the animation of this div tag</p>
+</div>
+
+<h1>5. Ajax</h1>
+<h1>5.1 Key Concepts</h1>
+<p>Fresh the page to see the response data[effecta:cloudcover is the new data from server]</p>
+
+<div class="div_51">placeholder here</div>
+
+<h1>5.2 jQuery’s Ajax-Related Methods</h1>
+<p>Fresh the page to see the response data[effect] <br>
+The following dog image was load from free api: https://dog.ceo/api/breeds/image/random</p>
+
+<div class="div_52">placeholder here</div>
+
+
+<h1>5.3 Ajax and Forms</h1>
+<p>fill in the first name(length should >=4) and click submit button.<br>
+- we will estimate the age according to the first name you entered!<br>
+- we are using the free api: https://api.agify.io/<br>
+- see the updated age information below the 'submission button'</p>
+
+<form class="form53"> 
+    <input type="text" id="first_name53" name="fname"><br> 
+    <input type="submit" id="submit_button53" name="submit">
+</form>
+
+<p class="p53">The estimated age  <span class="span53"></span></p>
+
+<h1>5.4 Working with JSONP</h1>
+<p>This case is similar to 5.3, but the dataType need to be changed to "jsonp"<br>
+As I could <b>not</b> find a public api which will return back <b>jsonp</b> type data(mostly are <b>json</b> type)<br>
+I will not show the only example in this 5.4 page <p>
+
+
+<h1>5.5 Ajax Events</h1>
+<p> because the application.js was load after the document is ready, I will only show <b>ajaxStop</b> event here.<br>
+<p> - the effect for this 5.5 will be shown  as  an 'Alert' </p>
+<p> - Need to disable the comment of <b> section 5.5 in application.js</b> (the last script) to see the effect.</p>
+<p> - I commented it out, to prevent it to show the alert each time when I click the submit button in 5.3 </p>
+ 
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+ 

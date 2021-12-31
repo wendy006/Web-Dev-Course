@@ -1,0 +1,2 @@
+### What this repository is for?
+THIS REPOSITORY IS FOR: SFU CMPT470 WEEKLY EXCERCISE 3

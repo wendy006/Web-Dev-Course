@@ -1,0 +1,32 @@
+:root {
+    --button_text_bg_color: #66c;
+    --button_block_bg_color: #64a;
+}
+
+h1 {
+    margin-left: 0em;
+    padding-right: 5em;
+}
+
+ul#menu {
+    background-color: var(--button_block_bg_color);
+    width: 8em;
+    position: absolute;
+    right: 0.5em;
+    top: 0em;
+    padding-left: 1em;
+}
+
+ul#menu li {
+    list-style: none;
+    padding: 0.5em;
+    background-color: var(--button_text_bg_color);
+    /* for mobile device */
+    margin: 3px;
+    word-break: break-all;
+}
+
+div#main {
+    background-color: white;
+    padding-right: 8.5em;
+}

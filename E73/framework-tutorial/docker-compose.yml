@@ -1,0 +1,78 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - static:/static:rw
+      - ./:/code:rw
+    environment:
+      DJANGO_MODE: production
+  db: 
+    image: "postgres:latest"
+    volumes:
+      - db:/var/lib/postgresql/data:rw
+      - static:/static:ro
+      - ./:/code:rw
+    environment:
+      POSTGRES_USER: e7
+      POSTGRES_PASSWORD: e7123
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    ports:
+      - "8080:80"
+    volumes:
+      - static:/static:ro
+      - ./:/code:rw
+
+    # depends_on:
+    #   - app
+
+volumes:
+  static:
+  db:
+
+    
+
+
+
+# version: '3'
+
+# services:
+#   django_gunicorn:
+#     volumes:
+#       - static:/static:rw
+#     env_file:
+#       - .env
+#     build:
+#       context: . 
+#     ports:
+#       - "8000:8000"
+
+#   nginx:
+#     build: ./nginx
+#     volumes:
+#       - static:/static
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - django_gunicorn
+  
+#   db:
+#     image: "postgres:latest"
+#     volumes:
+#       - db:/var/lib/postgresql/data:rw
+#     environment:
+#       # POSTGRES_DB: demodb2
+#       POSTGRES_USER: project
+#       POSTGRES_PASSWORD: secret
+
+# volumes:
+#   static:
+#   db:
+

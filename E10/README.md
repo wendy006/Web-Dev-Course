@@ -1,0 +1,3 @@
+# Exercise 10
+
+CMPT 470 EXCERCISE 10

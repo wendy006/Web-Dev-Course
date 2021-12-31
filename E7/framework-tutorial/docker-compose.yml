@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  django_gunicorn:
+    volumes:
+      - static:/static:rw
+    env_file:
+      - .env
+    build:
+      context: . 
+    ports:
+      - "8000:8000"
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/static:rw
+    ports:
+      - "80:80"
+    depends_on:
+      - django_gunicorn
+  
+  db:
+    image: "postgres:latest"
+    volumes:
+      - db:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: e7demo
+      POSTGRES_USER: e7
+      POSTGRES_PASSWORD: e7123
+
+volumes:
+  static:
+  db:
+
+
+

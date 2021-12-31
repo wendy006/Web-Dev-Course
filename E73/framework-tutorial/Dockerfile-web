@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+COPY ./custom-web.conf /etc/nginx/conf.d
+
+# CMD nginx -g "daemon off; error_log /dev/stdout info;"

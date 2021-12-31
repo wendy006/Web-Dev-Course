@@ -1,0 +1,133 @@
+:root {
+    --body_bg_color: lightblue;
+    --title_bg_color: lightpink;
+    --course_bg_color: lightgreen;
+    --q2_bg_color: white;
+}
+
+body {
+    background-color: var(--body_bg_color);
+}
+
+h1 {
+    background-color: white;
+    text-align: center;
+    margin-bottom: 0em;
+    margin-top: 0em;
+}
+
+h2 {
+    background-color: var(--title_bg_color);
+    text-align: center;
+    word-wrap: break-word;
+    padding-left: 1em;
+    margin-bottom: 0em;
+    margin-top: 1em;
+}
+
+div.flex_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 0em 5em;
+    border-width: 0.5em;
+    border-color: green;
+    border-style: dotted;
+}
+
+div.flex_item {
+    list-style: none;
+    padding: 0.5em;
+    background-color: var(--course_bg_color);
+    /* for mobile device */
+    margin: 0.5em;
+}
+
+.grid_box {
+    background-color: var(--q2_bg_color);
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(3, [col] 33%);
+    grid-template-rows: repeat(2, [row] 50%);
+    word-wrap: break-word;
+    padding: 1em;
+}
+
+.grid_item {
+    /* background-color: blueviolet; */
+    word-wrap: break-word;
+    border-width: 0.5em;
+    border-color: pink;
+    border-style: dotted;
+}
+
+.grid_item.item_cat {
+    /* background-color: pink; */
+    grid-column: col / span 2;
+    grid-row: row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.grid_item.item_dog {
+    /* background-color: yellow; */
+    grid-column: col / span 2;
+    grid-row: row 2;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.grid_item.item_rabbit {
+    grid-column: col 3;
+    grid-row: row / span 2;
+    word-wrap: break-word;
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    /* padding: 0em; */
+}
+
+
+/* make img to fit its div container */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.grid_item.item_rabbit>.grid_text {
+    /* background-color: aqua; */
+    padding-bottom: 0.5em;
+    padding-right: 1em;
+    margin-bottom: 0em;
+    text-align: bottom;
+    max-width: 100%;
+}
+
+.grid_item.item_rabbit>.grid_img {
+    /* background-color: blueviolet; */
+    margin-bottom: 1em;
+    max-width: 100%;
+}
+
+.grid_item.item_cat>.grid_text,
+.grid_item.item_dog>.grid_text {
+    max-width: 100%;
+    /* background-color: aqua; */
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+}
+
+.grid_item.item_cat>.grid_img,
+.grid_item.item_dog>.grid_img {
+    /* background-color: blueviolet; */
+    /* max-width: 100%; */
+    margin-bottom: 1em;
+    padding: 0.5em;
+    max-width: 100%;
+}

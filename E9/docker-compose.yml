@@ -1,0 +1,79 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    # ports:
+    #   - "8000"
+      # - "8000"
+      # - "8080:8080"
+      # - "8080:80"
+    expose:
+      - "8000"
+    volumes:
+      # - static:/static:rw
+      - ./:/code:rw
+    # environment:
+    #   DJANGO_MODE: production
+    links:
+      - db
+    depends_on:
+      - db
+    restart: always
+  
+  db: 
+    image: "postgres:latest"
+    volumes:
+      - db:/var/lib/postgresql/data:rw
+      # - static:/static:rw
+      - ./:/code:rw
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: e9demo
+      POSTGRES_USER: e9
+      POSTGRES_PASSWORD: e9123
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    ports:
+      # - "8080:80"
+      # - "8080:8080"
+      # - "8000:8000"
+      - "8080:80"
+    volumes:
+      - static:/static:rw
+      - ./contact_manager/static:/usr/share/nginx/html/static
+      # - ./:/code:rw
+    links:
+      - app
+    depends_on:
+      - app
+    restart: always
+
+    # depends_on:
+    #   - db
+
+volumes:
+  static:
+  db:
+
+
+# version: '3'
+# services:
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile-app
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - ./:/code:rw
+#     environment:
+#       DJANGO_MODE: devel # look at os.environ['DJANGO_MODE'] to detect deployment
+
+      

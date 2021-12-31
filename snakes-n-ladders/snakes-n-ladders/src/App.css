@@ -1,0 +1,13 @@
+.App {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font: small-caps bolder 3em sans-serif;
+}
